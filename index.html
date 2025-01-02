@@ -314,6 +314,21 @@ canvas {
         // Mantener el chat dentro del contenedor al redimensionar la ventana
         window.addEventListener('resize', keepChatInContainer);
     </script>
+    <script>
+    document.addEventListener("fullscreenchange", () => {
+        const chat = document.getElementById("chat-container");
+        if (document.fullscreenElement) {
+            // Ajustar z-index y posición para mantener el chat visible
+            chat.style.zIndex = "1000000000";
+            chat.style.position = "fixed";
+        } else {
+            // Restaurar el estado del chat al salir de pantalla completa
+            chat.style.zIndex = "1000000000";
+            chat.style.position = "fixed";
+        }
+    });
+</script>
+
 </body>
 </html>
 
