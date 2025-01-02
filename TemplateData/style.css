@@ -3,6 +3,7 @@ body {
     margin: 0;
     overflow: scroll; /*hidden Previene el scroll */
     z-index: 900; /* Por encima de otros elementos */
+    display: none;
 }
 
 #unity-container { 
@@ -13,6 +14,7 @@ body {
     left: 0; 
     transform: none; /* Elimina cualquier transformación previa */
     z-index: 900; /* Por encima de otros elementos */
+    display: none;
 }
 
 #unity-container.unity-desktop { 
@@ -20,13 +22,14 @@ body {
     top: 0;
     transform: none;
     z-index: 900; /* Por encima de otros elementos */
+    display: none;
 }
 
 #unity-container.unity-mobile { 
     position: static; 
     width: 100%; 
     height: 100% 
-    
+     fit-content
 }
 
 #unity-canvas { 
@@ -34,6 +37,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: 900; /* Por encima de otros elementos */
+    display: none;
 }
 
 #unity-loading-bar { 
@@ -43,6 +47,7 @@ body {
     transform: translate(-50%, -50%); 
     display: none;
     z-index: 1000; /* Asegura que esté por encima del canvas */
+    display: none;
 }
 
 #unity-logo { 
@@ -73,10 +78,11 @@ body {
     left: 0;
     width: 100%;
     z-index: 1001; /* Por encima del canvas pero debajo del chat */
+    display: none;
 }
 
 .unity-mobile #unity-footer { 
-    display: none 
+    display: outside 
 }
 
 #unity-webgl-logo { 
@@ -112,4 +118,5 @@ body {
     display: none;
     z-index: 1002; /* Por encima de otros elementos */
 }
+
 
