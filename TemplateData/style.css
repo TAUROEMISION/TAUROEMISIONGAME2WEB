@@ -1,11 +1,16 @@
 body {
     padding: 0;
     margin: 0;
+    overflow: hidden; /* Evita que aparezca un scroll no deseado */
 }
 
 #unity-container {
     position: absolute;
-    z-index: 1; /* Se asegura de estar detrás del chat */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* El juego estará detrás del chat */
 }
 
 #unity-container.unity-desktop {
