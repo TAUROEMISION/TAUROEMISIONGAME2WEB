@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="TemplateData/style.css">
     <style>
         #chat-container {
-            position: absolute;
+            position: fixed; /* Fijo para estar siempre visible */
             top: 20px;
             left: 20px;
             background-color: rgba(255, 255, 255, 0);
@@ -32,6 +32,10 @@
         #toggleChat {
             cursor: pointer;
         }
+        /* Para evitar que los elementos del juego interfieran con el chat */
+canvas {
+    pointer-events: auto; /* Asegura que el canvas no bloquee la interacción con el chat */
+}
     </style>
 </head>
 <body>
