@@ -1,31 +1,39 @@
 body { 
     padding: 0; 
     margin: 0;
-    overflow: hidden; /* Previene el scroll */
+    overflow: scroll; /*hidden Previene el scroll */
+    z-index: 900; /* Por encima de otros elementos */
 }
 
 #unity-container { 
     position: static;
     width: 100%;
     height: 100%;
+    top: 0; 
+    left: 0; 
+    transform: none; /* Elimina cualquier transformación previa */
+    z-index: 900; /* Por encima de otros elementos */
 }
 
 #unity-container.unity-desktop { 
     left: 0;
     top: 0;
     transform: none;
+    z-index: 900; /* Por encima de otros elementos */
 }
 
 #unity-container.unity-mobile { 
     position: static; 
     width: 100%; 
     height: 100% 
+    
 }
 
 #unity-canvas { 
     background: #231F20;
     width: 100%;
     height: 100%;
+    z-index: 900; /* Por encima de otros elementos */
 }
 
 #unity-loading-bar { 
@@ -55,7 +63,8 @@ body {
     width: 0%; 
     height: 18px; 
     margin-top: 10px; 
-    background: url('progress-bar-full-dark.png') no-repeat center 
+    background: url('progress-bar-full-dark.png') no-repeat center
+   
 }
 
 #unity-footer { 
