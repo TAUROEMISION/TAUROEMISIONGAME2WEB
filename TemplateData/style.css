@@ -82,7 +82,7 @@ body {
 }
 
 .unity-mobile #unity-footer { 
-    display: outside 
+    display: none 
 }
 
 #unity-webgl-logo { 
