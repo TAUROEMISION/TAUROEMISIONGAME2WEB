@@ -26,17 +26,17 @@ canvas {
     </style>
 </head>
 <body>
-   
+        <!-- Contenedor del chat como iframe -->
+<iframe 
+id="chat-iframe" 
+src="chat.html" allowfullscreen="1000000" 
+frameborder="0"
+    style="position: fixed; top: 20px; left: 20px; width: 310px; height: 400px; border: none; z-index: 1000000;">
+</iframe>
     <div id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas" width="1242" height="975" tabindex="-1" style="width: 960px; height: 600px; cursor: default;">
         </canvas>
-             <!-- Contenedor del chat como iframe -->
-<iframe 
-id="chat-iframe" 
-src="chat.html" allowfullscreen 
-frameborder="0"
-    tabindex="1">
-</iframe>
+        
         <div id="unity-loading-bar">
             <div id="unity-logo"></div>
             <div id="unity-progress-bar-empty">
