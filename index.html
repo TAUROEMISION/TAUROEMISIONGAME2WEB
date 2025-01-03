@@ -9,13 +9,13 @@
     <style>
         #chat-container {
             position: fixed; /* Fijo para estar siempre visible */
-            top: 20px;
+            top: 10px;
             left: 20px;
             background-color: rgba(255, 255, 255, 0);
             padding: 10px;
             border-radius: 5px;
             width: 300px;
-            z-index: 1000000000;
+            z-index: 2147483647; /* Prioridad máxima */
             cursor: move;
             user-select: none;
             box-shadow: 0 0 10px rgba(0,0,0,0);
@@ -318,14 +318,19 @@ canvas {
     document.addEventListener("fullscreenchange", () => {
         const chat = document.getElementById("chat-container");
         if (document.fullscreenElement) {
-            // Ajustar z-index y posición para mantener el chat visible
-            chat.style.zIndex = "1000000000";
+            chat.style.zIndex = "2147483647"; // Máximo z-index
             chat.style.position = "fixed";
         } else {
-            // Restaurar el estado del chat al salir de pantalla completa
-            chat.style.zIndex = "1000000000";
+            chat.style.zIndex = "2147483647";
             chat.style.position = "fixed";
         }
+    });
+
+    // Forzar la visibilidad del chat al iniciar
+    window.addEventListener("load", () => {
+        const chat = document.getElementById("chat-container");
+        chat.style.zIndex = "2147483647";
+        chat.style.position = "fixed";
     });
 </script>
 
