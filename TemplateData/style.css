@@ -13,7 +13,7 @@ body {
     z-index: -100; /* El juego estará detrás del chat */
 }
 
-#unity-container.unity-desktop {
+#unity-container.unity-desktop { 
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
