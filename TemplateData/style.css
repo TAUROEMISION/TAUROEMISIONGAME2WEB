@@ -6,8 +6,8 @@ body {
 
 #unity-container {
     position: 0;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
     width: 100%;
     height: 100%;
     z-index: -100; /* El juego estará detrás del chat */
@@ -21,8 +21,8 @@ body {
 
 #unity-container.unity-mobile {
     position: 0;
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
 }
 
 #unity-canvas {
@@ -31,8 +31,8 @@ body {
 }
 
 .unity-mobile #unity-canvas {
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
 }
 
 #unity-loading-bar {
