@@ -7,31 +7,18 @@
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <style>
-        #chat-container {
-            position: fixed; /* Fijo para estar siempre visible */
-            top: 10px;
-            left: 20px;
-            background-color: rgba(255, 255, 255, 0);
-            padding: 10px;
-            border-radius: 5px;
-            width: 300px;
-            z-index: 2147483647; /* Prioridad máxima */
-            cursor: move;
-            user-select: none;
-            box-shadow: 0 0 10px rgba(0,0,0,0);
-        }
-        #chat-form {
-            display: none;
-        }
-        #chatUl {
-            list-style-type: none;
-            padding: 0;
-            max-height: 150px;
-            overflow-y: auto;
-        }
-        #toggleChat {
-            cursor: pointer;
-        }
+     #chat-iframe {
+    position: fixed; /* Para que siempre esté visible */
+    top: 20px; /* Distancia desde la parte superior */
+    left: 20px; /* Posición a la derecha */
+    width: 300px; /* Tamaño del iframe */
+    height: 400px; /* Altura del iframe */
+    z-index: 100000; /* Asegúrate de que esté encima del juego */
+    background-color: rgba(255, 255, 255, 0); /* Fondo semitransparente */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0); /* Sombra */
+}
+
         /* Para evitar que los elementos del juego interfieran con el chat */
 canvas {
     pointer-events: auto; /* Asegura que el canvas no bloquee la interacción con el chat */
@@ -42,8 +29,6 @@ canvas {
     <div id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas" width="1242" height="975" tabindex="-1" style="width: 960px; height: 600px; cursor: default;"></canvas>
         
-        
-
         <div id="unity-loading-bar">
             <div id="unity-logo"></div>
             <div id="unity-progress-bar-empty">
@@ -57,23 +42,14 @@ canvas {
             <div id="unity-build-title">TAUROEMISIONGAME2</div>
         </div>
     </div>
-<div id="chat-container">
-            <button id="toggleChat">Charlar</button>
-            <div id="chat-form">
-                <form action="">
-                    <div>
-                        <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" required>
-                    </div>
-                    <div>
-                        <label for="mensaje">Mensaje</label>
-                        <textarea id="mensaje" required></textarea>
-                    </div>
-                    <button type="button" id="btnEnviar">Enviar</button>
-                </form>
-            </div>
-            <ul id="chatUl"></ul>
-        </div>
+
+    <!-- Contenedor del chat como iframe -->
+<iframe 
+id="chat-iframe" 
+src="chat.html" 
+frameborder="0">
+</iframe>
+
     <script>
 
         var container = document.querySelector("#unity-container");
@@ -170,171 +146,7 @@ canvas {
   
       </script>
 
-    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-database-compat.js"></script>
-    <script>
-        // Configuración de Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyBsT5gag1QnSkOylpBAywR4HWAkq-GoiJA",
-            authDomain: "tauroemisiongame2.firebaseapp.com",
-            databaseURL: "https://tauroemisiongame2-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "tauroemisiongame2",
-            storageBucket: "tauroemisiongame2.appspot.com",
-            messagingSenderId: "89770445112",
-            appId: "1:89770445112:web:66eadc60fe6d9cf9e299cd"
-        };
-
-        // Inicializar Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database(app);
-
-        // Elementos del DOM
-        const unityContainer = document.getElementById('unity-container');
-        const chatContainer = document.getElementById('chat-container');
-        const txtNombre = document.getElementById("nombre");
-        const txtMensaje = document.getElementById("mensaje");
-        const btnEnviar = document.getElementById("btnEnviar");
-        const chatUl = document.getElementById("chatUl");
-        const toggleChat = document.getElementById('toggleChat');
-        const chatForm = document.getElementById('chat-form');
-
-        // Variables para el arrastre
-        let isDragging = false;
-        let currentX;
-        let currentY;
-        let initialX;
-        let initialY;
-        let xOffset = 0;
-        let yOffset = 0;
-
-        // Evento para enviar mensajes
-        btnEnviar.addEventListener("click", function() {
-            const nombre = txtNombre.value.trim();
-            const mensaje = txtMensaje.value.trim();
-
-            if (nombre && mensaje) {
-                firebase.database().ref("chat").push({
-                    name: nombre,
-                    message: mensaje
-                });
-                txtMensaje.value = ''; // Limpiar solo el campo de mensaje
-            } else {
-                alert("Por favor completa ambos campos.");
-            }
-        });
-
-        // Escuchar cambios en la base de datos y actualizar el chat
-        firebase.database().ref("chat").on("value", function(snapshot) {
-            let html = "";
-            snapshot.forEach(function (e) {
-                const element = e.val();
-                html += `<li><b>${element.name}: </b>${element.message}</li>`;
-            });
-            chatUl.innerHTML = html;
-            chatUl.scrollTop = chatUl.scrollHeight; // Auto-scroll al último mensaje
-        });
-
-        // Funciones para hacer el chat arrastrable
-        chatContainer.addEventListener('mousedown', dragStart);
-        document.addEventListener('mouseup', dragEnd);
-        document.addEventListener('mousemove', drag);
-
-        function dragStart(e) {
-            initialX = e.clientX - xOffset;
-            initialY = e.clientY - yOffset;
-
-            if (e.target === chatContainer || e.target.closest('#chat-container')) {
-                isDragging = true;
-            }
-        }
-
-        function dragEnd(e) {
-            initialX = currentX;
-            initialY = currentY;
-
-            isDragging = false;
-            keepChatInContainer();
-        }
-
-        function drag(e) {
-            if (isDragging) {
-                e.preventDefault();
-                currentX = e.clientX - initialX;
-                currentY = e.clientY - initialY;
-
-                xOffset = currentX;
-                yOffset = currentY;
-
-                setTranslate(currentX, currentY, chatContainer);
-            }
-        }
-
-        function setTranslate(xPos, yPos, el) {
-            el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
-        }
-
-        function keepChatInContainer() {
-            const containerRect = unityContainer.getBoundingClientRect();
-            const chatRect = chatContainer.getBoundingClientRect();
-
-            if (chatRect.right > containerRect.right) {
-                xOffset -= chatRect.right - containerRect.right;
-            }
-            if (chatRect.left < containerRect.left) {
-                xOffset += containerRect.left - chatRect.left;
-            }
-            if (chatRect.bottom > containerRect.bottom) {
-                yOffset -= chatRect.bottom - containerRect.bottom;
-            }
-            if (chatRect.top < containerRect.top) {
-                yOffset += containerRect.top - chatRect.top;
-            }
-
-            setTranslate(xOffset, yOffset, chatContainer);
-        }
-
-        // Ajustar posición en pantalla completa
-        document.addEventListener('fullscreenchange', adjustChatPosition);
-
-        function adjustChatPosition() {
-            if (document.fullscreenElement) {
-                chatContainer.style.position = 'fixed';
-                chatContainer.style.zIndex = '2147483647';
-            } else {
-                chatContainer.style.position = 'absolute';
-            }
-            keepChatInContainer();
-        }
-
-        // Mostrar/ocultar el formulario de chat
-        toggleChat.addEventListener('click', function() {
-            chatForm.style.display = chatForm.style.display === 'none' ? 'block' : 'none';
-        });
-
-        // Mantener el chat dentro del contenedor al redimensionar la ventana
-        window.addEventListener('resize', keepChatInContainer);
-    </script>
-    <script>
-    document.addEventListener("fullscreenchange", () => {
-        const chat = document.getElementById("chat-container");
-        if (document.fullscreenElement) {
-            chat.style.zIndex = "999999999"; // Prioridad máxima
-            chat.style.position = "fixed";
-            chat.style.display = "block"; // Forzar visibilidad
-        } else {
-            chat.style.zIndex = "999999999";
-            chat.style.position = "fixed";
-            chat.style.display = "block";
-        }
-    });
-
-    // Forzar visibilidad inicial
-    window.addEventListener("load", () => {
-        const chat = document.getElementById("chat-container");
-        chat.style.zIndex = "999999999";
-        chat.style.position = "fixed";
-    });
-</script>
+    
 
 </body>
 </html>
