@@ -42,7 +42,22 @@ canvas {
     <div id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas" width="1242" height="975" tabindex="-1" style="width: 960px; height: 600px; cursor: default;"></canvas>
         
-        <div id="chat-container">
+        
+
+        <div id="unity-loading-bar">
+            <div id="unity-logo"></div>
+            <div id="unity-progress-bar-empty">
+                <div id="unity-progress-bar-full"></div>
+            </div>
+        </div>
+        <div id="unity-warning"> </div>
+        <div id="unity-footer">
+            <div id="unity-webgl-logo"></div>
+            <div id="unity-fullscreen-button"></div>
+            <div id="unity-build-title">TAUROEMISIONGAME2</div>
+        </div>
+    </div>
+<div id="chat-container">
             <button id="toggleChat">Charlar</button>
             <div id="chat-form">
                 <form action="">
@@ -59,21 +74,6 @@ canvas {
             </div>
             <ul id="chatUl"></ul>
         </div>
-
-        <div id="unity-loading-bar">
-            <div id="unity-logo"></div>
-            <div id="unity-progress-bar-empty">
-                <div id="unity-progress-bar-full"></div>
-            </div>
-        </div>
-        <div id="unity-warning"> </div>
-        <div id="unity-footer">
-            <div id="unity-webgl-logo"></div>
-            <div id="unity-fullscreen-button"></div>
-            <div id="unity-build-title">TAUROEMISIONGAME2</div>
-        </div>
-    </div>
-
     <script>
 
         var container = document.querySelector("#unity-container");
