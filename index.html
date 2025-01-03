@@ -318,18 +318,20 @@ canvas {
     document.addEventListener("fullscreenchange", () => {
         const chat = document.getElementById("chat-container");
         if (document.fullscreenElement) {
-            chat.style.zIndex = "2147483647"; // Máximo z-index
+            chat.style.zIndex = "999999999"; // Prioridad máxima
             chat.style.position = "fixed";
+            chat.style.display = "block"; // Forzar visibilidad
         } else {
-            chat.style.zIndex = "2147483647";
+            chat.style.zIndex = "999999999";
             chat.style.position = "fixed";
+            chat.style.display = "block";
         }
     });
 
-    // Forzar la visibilidad del chat al iniciar
+    // Forzar visibilidad inicial
     window.addEventListener("load", () => {
         const chat = document.getElementById("chat-container");
-        chat.style.zIndex = "2147483647";
+        chat.style.zIndex = "999999999";
         chat.style.position = "fixed";
     });
 </script>
