@@ -10,7 +10,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* El juego estará detrás del chat */
+    z-index: -100; /* El juego estará detrás del chat */
 }
 
 #unity-container.unity-desktop {
@@ -27,7 +27,7 @@ body {
 
 #unity-canvas {
     background: #231F20;
-    z-index: 1; /* El canvas debe estar detrás del chat */
+    z-index: -91; /* El canvas debe estar detrás del chat */
 }
 
 .unity-mobile #unity-canvas {
@@ -41,7 +41,7 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     display: none;
-    z-index: 2; /* Aseguramos que esté encima del canvas pero debajo del chat */
+    z-index: -82; /* Aseguramos que esté encima del canvas pero debajo del chat */
 }
 
 #unity-logo {
@@ -104,7 +104,7 @@ body {
     background: white;
     padding: 10px;
     display: none;
-    z-index: 3;
+    z-index: -93;
 }
 
 
