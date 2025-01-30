@@ -40,8 +40,8 @@
 </head>
 <body>
     <div id="chat-container">
-        <button id="toggleChatVisibility">CHAT</button>
-        <div id="chat-content">
+        <button id="toggleChatVisibility" style="position: absolute; top: -30px; left: 0; z-index: 9999;">CHAT</button>
+    <div id="chat-content">
             <button id="toggleChat">Charlar</button>
             <div id="chat-form">
                 <form action="">
@@ -90,27 +90,22 @@
         const toggleChatVisibility = document.getElementById('toggleChatVisibility');
         const chatContent = document.getElementById('chat-content');
 
-        // Nuevo código para el botón de visibilidad del chat
         toggleChatVisibility.addEventListener('click', function() {
-            if (chatContent.style.display === 'none') {
-                chatContent.style.display = 'block';
-                toggleChatVisibility.textContent = 'OCULTAR';
-            } else {
-                chatContent.style.display = 'none';
-                toggleChatVisibility.textContent = 'CHAT';
-            }
+        if (chatContent.style.display === 'none' || chatContent.style.display === '') {
+        chatContent.style.display = 'block';
+        toggleChatVisibility.textContent = 'OCULTAR';
+        } else {
+        chatContent.style.display = 'none';
+        toggleChatVisibility.textContent = 'CHAT';
+        }
         });
 
-        // Modificar el evento existente del botón toggleChat
-        toggleChat.addEventListener('click', function() {
-            chatForm.style.display = chatForm.style.display === 'none' ? 'block' : 'none';
+        // Inicialmente visible
+        window.addEventListener('load', () => {
+        chatContent.style.display = 'block';
+        toggleChatVisibility.textContent = 'OCULTAR';
         });
 
-        // Asegúrate de que el chat esté visible inicialmente
-        window.addEventListener("load", () => {
-            chatContent.style.display = 'block';
-            toggleChatVisibility.textContent = 'OCULTAR';
-        });
 
         // El resto de tu código JavaScript existente
         // ... (incluye aquí todo el código JavaScript que ya tenías)
@@ -252,4 +247,4 @@
         });
     </script>
 </body>
-</html>     
+</html>    
